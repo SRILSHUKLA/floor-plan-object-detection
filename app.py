@@ -3,6 +3,9 @@ from ultralytics import YOLO
 import PIL
 import helper
 import setting
+import torch
+from ultralytics.nn.tasks import DetectionModel
+from torch.nn.modules.container import Sequential
 
 def main():
     """
@@ -40,6 +43,7 @@ def main():
         else:
             st.warning("Please upload an image.")
 
+    torch.serialization.add_safe_globals([DetectionModel, Sequential])
     model = YOLO('best.pt')
 
     if st.sidebar.button('Detect Objects'):
